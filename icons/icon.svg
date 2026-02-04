@@ -1,0 +1,24 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆 -->
+  <circle cx="64" cy="64" r="60" fill="#2563eb"/>
+
+  <!-- 书本图标 -->
+  <path d="M30 40C30 36.6863 32.6863 34 36 34H56V94H36C32.6863 94 30 91.3137 30 88V40Z" fill="white" opacity="0.9"/>
+  <path d="M98 40C98 36.6863 95.3137 34 92 34H72V94H92C95.3137 94 98 91.3137 98 88V40Z" fill="white" opacity="0.9"/>
+
+  <!-- 分析线条 -->
+  <path d="M42 50H50" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+  <path d="M42 60H50" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+  <path d="M42 70H48" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+
+  <path d="M78 50H86" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+  <path d="M78 60H86" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+  <path d="M78 70H82" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- 中间放大镜（表示分析） -->
+  <circle cx="64" cy="64" r="14" stroke="white" stroke-width="4" fill="none"/>
+  <path d="M74 74L82 82" stroke="white" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- 高光 -->
+  <ellipse cx="45" cy="30" rx="12" ry="6" fill="white" opacity="0.3"/>
+</svg>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>范文拆解器</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- 头部 -->
+    <header class="popup-header">
+      <div class="logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+        </svg>
+        <h1>范文拆解器</h1>
+      </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="popup-main">
+      <!-- 页面检测状态 -->
+      <div id="pageStatus" class="page-status">
+        <span class="status-dot"></span>
+        <span class="status-text">检测页面中...</span>
+      </div>
+
+      <!-- 操作按钮 -->
+      <div class="action-buttons">
+        <button id="btnAnalyze" class="btn btn-primary" disabled>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+          </svg>
+          打开侧边栏
+        </button>
+
+        <button id="btnSettings" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          设置
+        </button>
+      </div>
+
+      <!-- 快速提示 -->
+      <div id="quickTip" class="quick-tip" style="display: none;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span id="tipText"></span>
+      </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="popup-footer">
+      <a href="#" id="btnHelp">使用帮助</a>
+      <span class="version">v1.0.0</span>
+    </footer>
+  </div>
+
+  <!-- 设置面板 -->
+  <div id="settingsPanel" class="settings-panel" style="display: none;">
+    <div class="settings-header">
+      <h2>API设置</h2>
+      <button id="btnCloseSettings" class="btn-close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="settings-content">
+      <div class="form-group">
+        <label for="apiProvider">AI 服务商</label>
+        <select id="apiProvider" class="form-control">
+          <option value="anthropic">Anthropic (Claude)</option>
+          <option value="openai">OpenAI (GPT)</option>
+          <option value="zhipu">智谱AI (GLM)</option>
+          <option value="baidu">百度文心</option>
+          <option value="alibaba">阿里通义</option>
+          <option value="openai-compatible">自定义（OpenAI兼容）</option>
+        </select>
+        <small>选择"自定义"可使用任何兼容OpenAI API格式的服务</small>
+      </div>
+
+      <div class="form-group">
+        <label for="apiKey">API 密钥</label>
+        <input type="password" id="apiKey" class="form-control" placeholder="输入您的API密钥">
+        <small>密钥将安全存储在本地，不会上传到其他服务器</small>
+      </div>
+
+      <div class="form-group">
+        <label for="apiModel">模型</label>
+        <input type="text" id="apiModel" class="form-control" placeholder="留空使用默认模型">
+      </div>
+
+      <div class="form-group">
+        <label id="endpointLabel" for="apiEndpoint">自定义端点（可选）</label>
+        <input type="text" id="apiEndpoint" class="form-control" placeholder="留空使用官方端点">
+      </div>
+
+      <div class="settings-actions">
+        <button id="btnValidateApi" class="btn btn-secondary btn-block" style="margin-bottom: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          验证API配置
+        </button>
+        <button id="btnSaveSettings" class="btn btn-primary btn-block">保存设置</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

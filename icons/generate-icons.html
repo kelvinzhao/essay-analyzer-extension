@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>生成图标</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .icon-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      background: #f5f5f5;
+    }
+    .icon-box {
+      text-align: center;
+    }
+    .icon-box label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      color: #666;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 6px;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <h1>点击按钮下载图标</h1>
+  <button onclick="downloadAll()">下载所有图标</button>
+
+  <div class="icon-container">
+    <div class="icon-box">
+      <label>icon16.png</label>
+      <canvas id="canvas16" width="16" height="16"></canvas>
+    </div>
+    <div class="icon-box">
+      <label>icon48.png</label>
+      <canvas id="canvas48" width="48" height="48"></canvas>
+    </div>
+    <div class="icon-box">
+      <label>icon128.png</label>
+      <canvas id="canvas128" width="128" height="128"></canvas>
+    </div>
+  </div>
+
+  <svg style="display: none;">
+    <symbol id="icon" viewBox="0 0 128 128">
+      <!-- 背景圆 -->
+      <circle cx="64" cy="64" r="60" fill="#2563eb"/>
+      <!-- 书本左边 -->
+      <path d="M30 40C30 36.6863 32.6863 34 36 34H56V94H36C32.6863 94 30 91.3137 30 88V40Z" fill="white" opacity="0.9"/>
+      <!-- 书本右边 -->
+      <path d="M98 40C98 36.6863 95.3137 34 92 34H72V94H92C95.3137 94 98 91.3137 98 88V40Z" fill="white" opacity="0.9"/>
+      <!-- 左书页线条 -->
+      <path d="M42 50H50" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+      <path d="M42 60H50" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+      <path d="M42 70H48" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+      <!-- 右书页线条 -->
+      <path d="M78 50H86" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+      <path d="M78 60H86" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+      <path d="M78 70H82" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
+      <!-- 放大镜 -->
+      <circle cx="64" cy="64" r="14" stroke="white" stroke-width="4" fill="none"/>
+      <path d="M74 74L82 82" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    </symbol>
+  </svg>
+
+  <script>
+    const sizes = [
+      { id: 'canvas16', size: 16, filename: 'icon16.png' },
+      { id: 'canvas48', size: 48, filename: 'icon48.png' },
+      { id: 'canvas128', size: 128, filename: 'icon128.png' }
+    ];
+
+    function drawIcon(canvas, size) {
+      const ctx = canvas.getContext('2d');
+      const scale = size / 128;
+
+      // 背景圆
+      ctx.beginPath();
+      ctx.arc(64 * scale, 64 * scale, 60 * scale, 0, Math.PI * 2);
+      ctx.fillStyle = '#2563eb';
+      ctx.fill();
+
+      // 书本左边
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.beginPath();
+      ctx.moveTo(30 * scale, 40 * scale);
+      ctx.lineTo(30 * scale, 88 * scale);
+      ctx.quadraticCurveTo(30 * scale, 94 * scale, 36 * scale, 94 * scale);
+      ctx.lineTo(56 * scale, 94 * scale);
+      ctx.lineTo(56 * scale, 34 * scale);
+      ctx.lineTo(36 * scale, 34 * scale);
+      ctx.quadraticCurveTo(30 * scale, 34 * scale, 30 * scale, 40 * scale);
+      ctx.fill();
+
+      // 书本右边
+      ctx.beginPath();
+      ctx.moveTo(98 * scale, 40 * scale);
+      ctx.lineTo(98 * scale, 88 * scale);
+      ctx.quadraticCurveTo(98 * scale, 94 * scale, 92 * scale, 94 * scale);
+      ctx.lineTo(72 * scale, 94 * scale);
+      ctx.lineTo(72 * scale, 34 * scale);
+      ctx.lineTo(92 * scale, 34 * scale);
+      ctx.quadraticCurveTo(98 * scale, 34 * scale, 98 * scale, 40 * scale);
+      ctx.fill();
+
+      // 左书页线条
+      ctx.strokeStyle = '#2563eb';
+      ctx.lineWidth = 3 * scale;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(42 * scale, 50 * scale);
+      ctx.lineTo(50 * scale, 50 * scale);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(42 * scale, 60 * scale);
+      ctx.lineTo(50 * scale, 60 * scale);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(42 * scale, 70 * scale);
+      ctx.lineTo(48 * scale, 70 * scale);
+      ctx.stroke();
+
+      // 右书页线条
+      ctx.beginPath();
+      ctx.moveTo(78 * scale, 50 * scale);
+      ctx.lineTo(86 * scale, 50 * scale);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(78 * scale, 60 * scale);
+      ctx.lineTo(86 * scale, 60 * scale);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(78 * scale, 70 * scale);
+      ctx.lineTo(82 * scale, 70 * scale);
+      ctx.stroke();
+
+      // 放大镜圆
+      ctx.strokeStyle = 'white';
+      ctx.lineWidth = 4 * scale;
+      ctx.beginPath();
+      ctx.arc(64 * scale, 64 * scale, 14 * scale, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // 放大镜柄
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(74 * scale, 74 * scale);
+      ctx.lineTo(82 * scale, 82 * scale);
+      ctx.stroke();
+    }
+
+    function downloadCanvas(canvas, filename) {
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+
+    function downloadAll() {
+      sizes.forEach(({ id, filename }) => {
+        const canvas = document.getElementById(id);
+        downloadCanvas(canvas, filename);
+      });
+    }
+
+    // 初始化绘制所有图标
+    sizes.forEach(({ id, size }) => {
+      const canvas = document.getElementById(id);
+      drawIcon(canvas, size);
+    });
+  </script>
+</body>
+</html>
