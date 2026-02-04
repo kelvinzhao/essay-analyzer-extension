@@ -81,9 +81,14 @@ body {
 .status-dot {
   width: 8px;
   height: 8px;
+  min-width: 8px;
+  min-height: 8px;
   border-radius: 50%;
   background: var(--secondary-color);
   animation: pulse 2s infinite;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 5px;
 }
 
 .status-dot.checking {

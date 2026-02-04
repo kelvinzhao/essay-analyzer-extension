@@ -282,7 +282,7 @@
   function handleHelp(e) {
     e.preventDefault();
     chrome.tabs.create({
-      url: 'https://github.com/your-repo/essay-analyzer#readme'
+      url: 'https://github.com/kelvinzhao/essay-analyzer-extension#readme'
     });
   }
 
@@ -324,48 +324,6 @@
   function showValidationResult(status, message) {
     const type = status === 'success' ? 'success' : status === 'error' ? 'error' : 'info';
     showToast(message, type);
-  }
-
-  /**
-   * 处理帮助点击
-   */
-  function handleHelp(e) {
-    e.preventDefault();
-    chrome.tabs.create({
-      url: 'https://github.com/your-repo/essay-analyzer#readme'
-    });
-  }
-
-  /**
-   * 设置状态
-   */
-  function setStatus(status, text) {
-    elements.statusDot.className = 'status-dot ' + status;
-    elements.statusText.textContent = text;
-  }
-
-  /**
-   * 显示提示
-   */
-  function showTip(text) {
-    elements.tipText.textContent = text;
-    elements.quickTip.style.display = 'flex';
-  }
-
-  /**
-   * 显示消息提示
-   */
-  function showToast(message, type = 'info') {
-    const toast = document.createElement('div');
-    toast.className = `toast ${type}`;
-    toast.textContent = message;
-    document.body.appendChild(toast);
-
-    setTimeout(() => toast.classList.add('show'), 10);
-    setTimeout(() => {
-      toast.classList.remove('show');
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
   }
 
   /**
